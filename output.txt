@@ -1,0 +1,457 @@
+/* 
+*	SYSC 4001 - Assignment 2
+*	Maryn Marsland
+*	100854916
+*	Producer
+*/
+
+#include "pc.h"
+
+int BytesWritten = 0;	//count of the total number of bytes written to the shared memory
+int TotalBytes;	//the total number of bytes in the file
+
+char input_file [100];
+FILE* in;
+char input_buffer [BUFSIZ];
+
+struct buffer write_buf;
+
+int main(int argc, const char * argv[]) 
+{
+	//establish input file
+	if(argc < 2)	//if no command line arguments input
+	{
+		strcpy(input_file, "input.txt");	//use defult file input.txt
+	}
+	else
+	{
+		strcpy(input_file, argv[1]);	//get file name from command like argument
+	}
+	printf("Opening file: %s\n", input_file);
+	
+	in = fopen(input_file, "r");
+	//open file
+	if(in == NULL)
+	{
+		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
+		return;
+	}
+	
+	fseek(in, 0, SEEK_END);
+	TotalBytes = ftell(in);
+	fseek(in, 0, SEEK_SET);	
+
+	printf("Total bytes in file = %d\n", TotalBytes);
+	size_t count;
+	int begin_index;
+	while(BytesWritten < TotalBytes)	//while not at the end of the input file
+	{
+		//read from file into input buffer
+		count = fread(input_buffer, 1, BUFSIZ + BytesWritten, in);
+					//printf("read: %s\n", input_buffer); 
+		begin_index = 0;
+		printf("HERERER??\n");
+		//write the bytes for the shared memory buffer in 128 byte parts
+		while(begin_index < count)	
+		{	//repeat for all buffer-size parts read from file:
+			
+			strncpy(write_buf.data, input_buffer + begin_index, 128);
+			begin_index += 128;
+					printf("read: %s\n", write_buf.data);
+			//wait on semaphore E: for buffer not full
+			//wait on semaphore S: for buffer not in use
+			//"read" from input buffer into shared buffer
+			//signal semaphore S
+			//signal semaphore N
+		}
+
+		BytesWritten += count;
+	}
+	//once reached EOF, print and close file
+		printf("Reached end of file. %d bytes written to shared memory.\n", BytesWritten);
+	fclose(in);
+}
+
+
+
+
+/* 
+*	SYSC 4001 - Assignment 2
+*	Maryn Marsland
+*	100854916
+*	Producer
+*/
+
+#include "pc.h"
+
+int BytesWritten = 0;	//count of the total number of bytes written to the shared memory
+int TotalBytes;	//the total number of bytes in the file
+
+char input_file [100];
+FILE* in;
+char input_buffer [BUFSIZ];
+
+struct buffer write_buf;
+
+int main(int argc, const char * argv[]) 
+{
+	//establish input file
+	if(argc < 2)	//if no command line arguments input
+	{
+		strcpy(input_file, "input.txt");	//use defult file input.txt
+	}
+	else
+	{
+		strcpy(input_file, argv[1]);	//get file name from command like argument
+	}
+	printf("Opening file: %s\n", input_file);
+	
+	in = fopen(input_file, "r");
+	//open file
+	if(in == NULL)
+	{
+		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
+		return;
+	}
+	
+	fseek(in, 0, SEEK_END);
+	TotalBytes = ftell(in);
+	fseek(in, 0, SEEK_SET);	
+
+	printf("Total bytes in file = %d\n", TotalBytes);
+	size_t count;
+	int begin_index;
+	while(BytesWritten < TotalBytes)	//while not at the end of the input file
+	{
+		//read from file into input buffer
+		count = fread(input_buffer, 1, BUFSIZ + BytesWritten, in);
+					//printf("read: %s\n", input_buffer); 
+		begin_index = 0;
+		printf("HERERER??\n");
+		//write the bytes for the shared memory buffer in 128 byte parts
+		while(begin_index < count)	
+		{	//repeat for all buffer-size parts read from file:
+			
+			strncpy(write_buf.data, input_buffer + begin_index, 128);
+			begin_index += 128;
+					printf("read: %s\n", write_buf.data);
+			//wait on semaphore E: for buffer not full
+			//wait on semaphore S: for buffer not in use
+			//"read" from input buffer into shared buffer
+			//signal semaphore S
+			//signal semaphore N
+		}
+
+		BytesWritten += count;
+	}
+	//once reached EOF, print and close file
+		printf("Reached end of file. %d bytes written to shared memory.\n", BytesWritten);
+	fclose(in);
+}
+
+
+
+
+
+/* 
+*	SYSC 4001 - Assignment 2
+*	Maryn Marsland
+*	100854916
+*	Producer
+*/
+
+#include "pc.h"
+
+int BytesWritten = 0;	//count of the total number of bytes written to the shared memory
+int TotalBytes;	//the total number of bytes in the file
+
+char input_file [100];
+FILE* in;
+char input_buffer [BUFSIZ];
+
+struct buffer write_buf;
+
+int main(int argc, const char * argv[]) 
+{
+	//establish input file
+	if(argc < 2)	//if no command line arguments input
+	{
+		strcpy(input_file, "input.txt");	//use defult file input.txt
+	}
+	else
+	{
+		strcpy(input_file, argv[1]);	//get file name from command like argument
+	}
+	printf("Opening file: %s\n", input_file);
+	
+	in = fopen(input_file, "r");
+	//open file
+	if(in == NULL)
+	{
+		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
+		return;
+	}
+	
+	fseek(in, 0, SEEK_END);
+	TotalBytes = ftell(in);
+	fseek(in, 0, SEEK_SET);	
+
+	printf("Total bytes in file = %d\n", TotalBytes);
+	size_t count;
+	int begin_index;
+	while(BytesWritten < TotalBytes)	//while not at the end of the input file
+	{
+		//read from file into input buffer
+		count = fread(input_buffer, 1, BUFSIZ + BytesWritten, in);
+					//printf("read: %s\n", input_buffer); 
+		begin_index = 0;
+		printf("HERERER??\n");
+		//write the bytes for the shared memory buffer in 128 byte parts
+		while(begin_index < count)	
+		{	//repeat for all buffer-size parts read from file:
+			
+			strncpy(write_buf.data, input_buffer + begin_index, 128);
+			begin_index += 128;
+					printf("read: %s\n", write_buf.data);
+			//wait on semaphore E: for buffer not full
+			//wait on semaphore S: for buffer not in use
+			//"read" from input buffer into shared buffer
+			//signal semaphore S
+			//signal semaphore N
+		}
+
+		BytesWritten += count;
+	}
+	//once reached EOF, print and close file
+		printf("Reached end of file. %d bytes written to shared memory.\n", BytesWritten);
+	fclose(in);
+}
+
+/* 
+*	SYSC 4001 - Assignment 2
+*	Maryn Marsland
+*	100854916
+*	Producer
+*/
+
+#include "pc.h"
+
+int BytesWritten = 0;	//count of the total number of bytes written to the shared memory
+int TotalBytes;	//the total number of bytes in the file
+
+char input_file [100];
+FILE* in;
+char input_buffer [BUFSIZ];
+
+struct buffer write_buf;
+
+int main(int argc, const char * argv[]) 
+{
+	//establish input file
+	if(argc < 2)	//if no command line arguments input
+	{
+		strcpy(input_file, "input.txt");	//use defult file input.txt
+	}
+	else
+	{
+		strcpy(input_file, argv[1]);	//get file name from command like argument
+	}
+	printf("Opening file: %s\n", input_file);
+	
+	in = fopen(input_file, "r");
+	//open file
+	if(in == NULL)
+	{
+		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
+		return;
+	}
+	
+	fseek(in, 0, SEEK_END);
+	TotalBytes = ftell(in);
+	fseek(in, 0, SEEK_SET);	
+
+	printf("Total bytes in file = %d\n", TotalBytes);
+	size_t count;
+	int begin_index;
+	while(BytesWritten < TotalBytes)	//while not at the end of the input file
+	{
+		//read from file into input buffer
+		count = fread(input_buffer, 1, BUFSIZ + BytesWritten, in);
+					//printf("read: %s\n", input_buffer); 
+		begin_index = 0;
+		printf("HERERER??\n");
+		//write the bytes for the shared memory buffer in 128 byte parts
+		while(begin_index < count)	
+		{	//repeat for all buffer-size parts read from file:
+			
+			strncpy(write_buf.data, input_buffer + begin_index, 128);
+			begin_index += 128;
+					printf("read: %s\n", write_buf.data);
+			//wait on semaphore E: for buffer not full
+			//wait on semaphore S: for buffer not in use
+			//"read" from input buffer into shared buffer
+			//signal semaphore S
+			//signal semaphore N
+		}
+
+		BytesWritten += count;
+	}
+	//once reached EOF, print and close file
+		printf("Reached end of file. %d bytes written to shared memory.\n", BytesWritten);
+	fclose(in);
+}
+
+
+
+
+/* 
+*	SYSC 4001 - Assignment 2
+*	Maryn Marsland
+*	100854916
+*	Producer
+*/
+
+#include "pc.h"
+
+int BytesWritten = 0;	//count of the total number of bytes written to the shared memory
+int TotalBytes;	//the total number of bytes in the file
+
+char input_file [100];
+FILE* in;
+char input_buffer [BUFSIZ];
+
+struct buffer write_buf;
+
+int main(int argc, const char * argv[]) 
+{
+	//establish input file
+	if(argc < 2)	//if no command line arguments input
+	{
+		strcpy(input_file, "input.txt");	//use defult file input.txt
+	}
+	else
+	{
+		strcpy(input_file, argv[1]);	//get file name from command like argument
+	}
+	printf("Opening file: %s\n", input_file);
+	
+	in = fopen(input_file, "r");
+	//open file
+	if(in == NULL)
+	{
+		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
+		return;
+	}
+	
+	fseek(in, 0, SEEK_END);
+	TotalBytes = ftell(in);
+	fseek(in, 0, SEEK_SET);	
+
+	printf("Total bytes in file = %d\n", TotalBytes);
+	size_t count;
+	int begin_index;
+	while(BytesWritten < TotalBytes)	//while not at the end of the input file
+	{
+		//read from file into input buffer
+		count = fread(input_buffer, 1, BUFSIZ + BytesWritten, in);
+					//printf("read: %s\n", input_buffer); 
+		begin_index = 0;
+		printf("HERERER??\n");
+		//write the bytes for the shared memory buffer in 128 byte parts
+		while(begin_index < count)	
+		{	//repeat for all buffer-size parts read from file:
+			
+			strncpy(write_buf.data, input_buffer + begin_index, 128);
+			begin_index += 128;
+					printf("read: %s\n", write_buf.data);
+			//wait on semaphore E: for buffer not full
+			//wait on semaphore S: for buffer not in use
+			//"read" from input buffer into shared buffer
+			//signal semaphore S
+			//signal semaphore N
+		}
+
+		BytesWritten += count;
+	}
+	//once reached EOF, print and close file
+		printf("Reached end of file. %d bytes written to shared memory.\n", BytesWritten);
+	fclose(in);
+}
+
+
+
+
+
+/* 
+*	SYSC 4001 - Assignment 2
+*	Maryn Marsland
+*	100854916
+*	Producer
+*/
+
+#include "pc.h"
+
+int BytesWritten = 0;	//count of the total number of bytes written to the shared memory
+int TotalBytes;	//the total number of bytes in the file
+
+char input_file [100];
+FILE* in;
+char input_buffer [BUFSIZ];
+
+struct buffer write_buf;
+
+int main(int argc, const char * argv[]) 
+{
+	//establish input file
+	if(argc < 2)	//if no command line arguments input
+	{
+		strcpy(input_file, "input.txt");	//use defult file input.txt
+	}
+	else
+	{
+		strcpy(input_file, argv[1]);	//get file name from command like argument
+	}
+	printf("Opening file: %s\n", input_file);
+	
+	in = fopen(input_file, "r");
+	//open file
+	if(in == NULL)
+	{
+		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
+		return;
+	}
+	
+	fseek(in, 0, SEEK_END);
+	TotalBytes = ftell(in);
+	fseek(in, 0, SEEK_SET);	
+
+	printf("Total bytes in file = %d\n", TotalBytes);
+	size_t count;
+	int begin_index;
+	while(BytesWritten < TotalBytes)	//while not at the end of the input file
+	{
+		//read from file into input buffer
+		count = fread(input_buffer, 1, BUFSIZ + BytesWritten, in);
+					//printf("read: %s\n", input_buffer); 
+		begin_index = 0;
+		printf("HERERER??\n");
+		//write the bytes for the shared memory buffer in 128 byte parts
+		while(begin_index < count)	
+		{	//repeat for all buffer-size parts read from file:
+			
+			strncpy(write_buf.data, input_buffer + begin_index, 128);
+			begin_index += 128;
+					printf("read: %s\n", write_buf.data);
+			//wait on semaphore E: for buffer not full
+			//wait on semaphore S: for buffer not in use
+			//"read" from input buffer into shared buffer
+			//signal semaphore S
+			//signal semaphore N
+		}
+
+		BytesWritten += count;
+	}
+	//once reached EOF, print and close file
+		printf("Reached end of file. %d bytes written to shared memory.\n", BytesWritten);
+	fclose(in);
+}

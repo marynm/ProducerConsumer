@@ -1,6 +1,3 @@
-# ProducerConsumer
-Producer/consumer problem using shared memory and semaphores
-
 README:
 
 SYSC 4001 - Assignment 2
