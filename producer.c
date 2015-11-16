@@ -25,11 +25,13 @@ int main(int argc, const char * argv[])
 	{
 		strcpy(input_file, argv[1]);	//get file name from command like argument
 	}
+
+
+	/* open file */
 	printf("Opening file: %s\n", input_file);
 	
 	in = fopen(input_file, "r");
 
-	/* open file */
 	if(in == NULL)
 	{
 		printf("File '%s' does not exist in this location.\n Closing producer.\n", input_file);
