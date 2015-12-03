@@ -1,8 +1,5 @@
 README:
 
-SYSC 4001 - Assignment 2
-Maryn Marsland - 100854916
-
 ========================================
 Files:
 	pc.h
